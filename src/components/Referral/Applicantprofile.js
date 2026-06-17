@@ -1,44 +1,53 @@
 import { useState, useEffect } from "react";
 import { Camera, Edit3 } from "lucide-react";
-import { useNavigate, useParams} from "react-router-dom";
-import '../User/editprofile.css'
+import { useNavigate, useParams } from "react-router-dom";
+import "../User/editprofile.css";
 import axios from "axios";
-import ConnectionPage from '../connection/connectionpage';
+import ConnectionPage from "../connection/connectionpage";
 
 export default function Applicantprofile() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const { applicantID } = useParams();
-  console.log(applicantID)
+  console.log(applicantID);
   const [profile, setProfile] = useState(null);
 
-  const BASE_URL = "http://localhost:5000";
-  
+  const BASE_URL = "https://connecthivebackend.onrender.com";
 
   useEffect(() => {
-   
-   console.log("here")
+    console.log("here");
     const fetchProfileData = async () => {
       try {
-        const profileRes = await fetch(`${BASE_URL}/api/user/get_profile/${applicantID}`);
+        const profileRes = await fetch(
+          `${BASE_URL}/api/user/get_profile/${applicantID}`,
+        );
         const profileData = await profileRes.json();
-        console.log(profileData)
+        console.log(profileData);
 
-        const licensesRes = await fetch(`${BASE_URL}/api/user/get_licenses/${applicantID}`);
+        const licensesRes = await fetch(
+          `${BASE_URL}/api/user/get_licenses/${applicantID}`,
+        );
         const licensesData = await licensesRes.json();
 
-        const skillsRes = await fetch(`${BASE_URL}/api/user/get_skills/${applicantID}`);
+        const skillsRes = await fetch(
+          `${BASE_URL}/api/user/get_skills/${applicantID}`,
+        );
         const skillsData = await skillsRes.json();
 
-        const interestRes = await fetch(`${BASE_URL}/api/user/get_interests/${applicantID}`);
+        const interestRes = await fetch(
+          `${BASE_URL}/api/user/get_interests/${applicantID}`,
+        );
         const interestsData = await interestRes.json();
 
-        const EducationRes = await fetch(`${BASE_URL}/api/user/get_education/${applicantID}`);
+        const EducationRes = await fetch(
+          `${BASE_URL}/api/user/get_education/${applicantID}`,
+        );
         const EducationData = await EducationRes.json();
 
-        const ExperienceRes = await fetch(`${BASE_URL}/api/user/get_experiences/${applicantID}`);
+        const ExperienceRes = await fetch(
+          `${BASE_URL}/api/user/get_experiences/${applicantID}`,
+        );
         const ExperienceData = await ExperienceRes.json();
-
 
         setProfile({
           ...profileData,
@@ -64,10 +73,13 @@ export default function Applicantprofile() {
     formData.append("profile_photo", file);
 
     try {
-      const response = await fetch(`${BASE_URL}/api/user/update-profile-photo/${applicantID}`, {  
-        method: "PUT",  
-        body: formData,
-      });
+      const response = await fetch(
+        `${BASE_URL}/api/user/update-profile-photo/${applicantID}`,
+        {
+          method: "PUT",
+          body: formData,
+        },
+      );
 
       if (response.ok) {
         const data = await response.json();
@@ -85,11 +97,12 @@ export default function Applicantprofile() {
   useEffect(() => {
     const fetchProfilePhoto = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/api/user/get-profile-photo/${applicantID}`);
+        const response = await axios.get(
+          `${BASE_URL}/api/user/get-profile-photo/${applicantID}`,
+        );
         if (response.data.profile_photo) {
           setProfileImage(`${BASE_URL}/${response.data.profile_photo}`);
         }
-
       } catch (error) {
         console.error("Error fetching profile photo:", error);
       }
@@ -101,11 +114,14 @@ export default function Applicantprofile() {
   return (
     <div className="min-h-screen bg-gray-900 text-white px-6 py-10">
       <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6">
-
         {/* Profile Card */}
         <div className="md:col-span-1 bg-gray-800 rounded-lg shadow-lg overflow-hidden">
           <div className="relative">
-            <img src="https://via.placeholder.com/850x250" alt="Cover" className="w-full h-36 object-cover" />
+            <img
+              src="https://via.placeholder.com/850x250"
+              alt="Cover"
+              className="w-full h-36 object-cover"
+            />
             <div className="relative flex flex-col items-center -mt-12">
               <img
                 src={profileImage || "https://via.placeholder.com/150"}
@@ -113,34 +129,38 @@ export default function Applicantprofile() {
                 className="w-24 h-24 rounded-full border-4 border-gray-900"
               />
 
-
-
               <label className="mt-1 flex items-center bg-blue-600 px-3 py-2 rounded-lg cursor-pointer hover:bg-blue-500 transition">
                 <Camera className="text-white w-5 h-5" />
-                <input type="file" accept="image/*" className="hidden" onChange={handleImageChange} />
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleImageChange}
+                />
               </label>
             </div>
           </div>
           <div className="p-6 text-center">
-            
-            <h2 className="text-2xl text-white font-bold ">{profile?.name || "Loading..."}</h2>
+            <h2 className="text-2xl text-white font-bold ">
+              {profile?.name || "Loading..."}
+            </h2>
             <p className="text-blue-400">{profile?.summary || ""}</p>
             <p className="text-sm text-gray-400">{profile?.email || ""}</p>
             <p className="text-sm text-gray-400">{profile?.phone || ""}</p>
             <button
-              onClick={() => navigate('/leaderboard')}
+              onClick={() => navigate("/leaderboard")}
               className="mt-4 bg-green-600 px-4 py-2 rounded-lg hover:bg-green-500 transition flex items-center mx-auto"
             >
               🏆 Leaderboard
             </button>
             <button
-              onClick={() => navigate('/my_connections')}
+              onClick={() => navigate("/my_connections")}
               className="mt-4 bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-500 transition flex items-center mx-auto"
             >
               <text className="w-5 h-5 mr-2" /> My Connections
             </button>
             <button
-              onClick={() => navigate('/editprofile')}
+              onClick={() => navigate("/editprofile")}
               className="mt-4 bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-500 transition flex items-center mx-auto"
             >
               <Edit3 className="w-5 h-5 mr-2" /> Edit Profile
@@ -150,25 +170,29 @@ export default function Applicantprofile() {
 
         {/* Right Column */}
         <div className="md:col-span-2 space-y-6 scrollable-section">
-
           {/* Activity Section */}
           <div
-  className="bg-gray-800 rounded-lg shadow-lg p-6 cursor-pointer hover:bg-gray-700 transition"
-  onClick={() => navigate('/activity')}
->
-  <h3 className="text-xl font-semibold text-blue-400 mb-3">Activity</h3>
-  <p className="text-gray-400">Click to view your activity</p>
-</div>
-
+            className="bg-gray-800 rounded-lg shadow-lg p-6 cursor-pointer hover:bg-gray-700 transition"
+            onClick={() => navigate("/activity")}
+          >
+            <h3 className="text-xl font-semibold text-blue-400 mb-3">
+              Activity
+            </h3>
+            <p className="text-gray-400">Click to view your activity</p>
+          </div>
 
           {/* Licenses & Certifications */}
           {profile?.licenses && (
             <div className="bg-gray-800 rounded-lg shadow-lg p-6">
-              <h3 className="text-xl font-semibold text-blue-400 mb-3">Licenses & Certifications</h3>
+              <h3 className="text-xl font-semibold text-blue-400 mb-3">
+                Licenses & Certifications
+              </h3>
               {profile.licenses.length > 0 ? (
                 <ul className="text-gray-300">
                   {profile.licenses.map((license, index) => (
-                    <li key={index} className="mb-1">{license.title} - {license.issuing_organization}</li>
+                    <li key={index} className="mb-1">
+                      {license.title} - {license.issuing_organization}
+                    </li>
                   ))}
                 </ul>
               ) : (
@@ -180,11 +204,15 @@ export default function Applicantprofile() {
           {/*education*/}
           {profile?.education && (
             <div className="bg-gray-800 rounded-lg shadow-lg p-6">
-              <h3 className="text-xl font-semibold text-blue-400 mb-3">Education</h3>
+              <h3 className="text-xl font-semibold text-blue-400 mb-3">
+                Education
+              </h3>
               {profile.education.length > 0 ? (
                 <ul className="text-gray-300">
                   {profile.education.map((educations, index) => (
-                    <li key={index} className="mb-1">{educations.institution} - {educations.degree}</li>
+                    <li key={index} className="mb-1">
+                      {educations.institution} - {educations.degree}
+                    </li>
                   ))}
                 </ul>
               ) : (
@@ -196,11 +224,15 @@ export default function Applicantprofile() {
           {/*experience*/}
           {profile?.experiences && (
             <div className="bg-gray-800 rounded-lg shadow-lg p-6">
-              <h3 className="text-xl font-semibold text-blue-400 mb-3">Experience</h3>
+              <h3 className="text-xl font-semibold text-blue-400 mb-3">
+                Experience
+              </h3>
               {profile.experiences.length > 0 ? (
                 <ul className="text-gray-300">
                   {profile.experiences.map((experience, index) => (
-                    <li key={index} className="mb-1">{experience.job_title} - {experience.company}</li>
+                    <li key={index} className="mb-1">
+                      {experience.job_title} - {experience.company}
+                    </li>
                   ))}
                 </ul>
               ) : (
@@ -211,11 +243,15 @@ export default function Applicantprofile() {
           {/* Skills */}
           {profile?.skills && (
             <div className="bg-gray-800 rounded-lg shadow-lg p-6">
-              <h3 className="text-xl font-semibold text-blue-400 mb-3">Skills</h3>
+              <h3 className="text-xl font-semibold text-blue-400 mb-3">
+                Skills
+              </h3>
               {profile.skills.length > 0 ? (
                 <ul className="text-gray-300">
                   {profile.skills.map((skill, index) => (
-                    <li key={index} className="mb-1">{skill.skill_name}</li>
+                    <li key={index} className="mb-1">
+                      {skill.skill_name}
+                    </li>
                   ))}
                 </ul>
               ) : (
@@ -227,11 +263,15 @@ export default function Applicantprofile() {
           {/* Interests */}
           {profile?.interests && (
             <div className="bg-gray-800 rounded-lg shadow-lg p-6">
-              <h3 className="text-xl font-semibold text-blue-400 mb-3">Interests</h3>
+              <h3 className="text-xl font-semibold text-blue-400 mb-3">
+                Interests
+              </h3>
               {profile.interests.length > 0 ? (
                 <ul className="text-gray-300">
                   {profile.interests.map((interest, index) => (
-                    <li key={index} className="mb-1">{interest.interest_name}</li>
+                    <li key={index} className="mb-1">
+                      {interest.interest_name}
+                    </li>
                   ))}
                 </ul>
               ) : (
@@ -239,7 +279,6 @@ export default function Applicantprofile() {
               )}
             </div>
           )}
-
         </div>
       </div>
     </div>

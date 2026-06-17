@@ -8,7 +8,7 @@ export default function LeaderBoardPage() {
   const [user, setUser] = useState(null);
   const [postLeaders, setPostLeaders] = useState([]);
   const [connectionLeaders, setConnectionLeaders] = useState([]);
-  const BASE_URL = "http://localhost:5000";
+  const BASE_URL = "https://connecthivebackend.onrender.com";
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -18,11 +18,15 @@ export default function LeaderBoardPage() {
   useEffect(() => {
     const fetchLeaderboards = async () => {
       try {
-        const postRes = await axios.get(`${BASE_URL}/api/leaderboard/leaderboard/posts`);
-        const connectionRes = await axios.get(`${BASE_URL}/api/leaderboard/leaderboard/connections`);
+        const postRes = await axios.get(
+          `${BASE_URL}/api/leaderboard/leaderboard/posts`,
+        );
+        const connectionRes = await axios.get(
+          `${BASE_URL}/api/leaderboard/leaderboard/connections`,
+        );
         console.log(postRes.data);
         console.log(connectionRes.data);
-        
+
         setPostLeaders(postRes.data);
         setConnectionLeaders(connectionRes.data);
       } catch (error) {

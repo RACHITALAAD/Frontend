@@ -3,74 +3,96 @@ import { FaUserCircle } from "react-icons/fa";
 import { useState, useEffect } from "react";
 
 const invitations = [
-  { id: 1, name: "Ahamad Heranja", role: "Automobile Engineer", time: "3 weeks ago" },
-  { id: 2, name: "ABHIJIT Kumar Rai", role: "Marwadi University", time: "4 weeks ago" },
+  {
+    id: 1,
+    name: "Ahamad Heranja",
+    role: "Automobile Engineer",
+    time: "3 weeks ago",
+  },
+  {
+    id: 2,
+    name: "ABHIJIT Kumar Rai",
+    role: "Marwadi University",
+    time: "4 weeks ago",
+  },
 ];
 
 export default function InvitationPage() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [invitations, setInvitations] = useState([]);
-  
-  useEffect(() => {
-      const storedUser = JSON.parse(localStorage.getItem("user"));
-      if (storedUser) setUser(storedUser);
-    }, []);
-  
-const userId = user?.id;
 
-// Fetch pending invitations
-useEffect(() => {
-  if (!userId) return;
-  const fetchInvitations = async () => {
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    if (storedUser) setUser(storedUser);
+  }, []);
+
+  const userId = user?.id;
+
+  // Fetch pending invitations
+  useEffect(() => {
+    if (!userId) return;
+    const fetchInvitations = async () => {
+      try {
+        const response = await fetch(
+          `https://connecthivebackend.onrender.com/api/connectionroute/pending/${userId}`,
+        );
+        if (!response.ok) throw new Error("Failed to fetch invitations");
+        const data = await response.json();
+        setInvitations(data);
+      } catch (error) {
+        console.error("Error fetching invitations:", error);
+      }
+    };
+    fetchInvitations();
+  }, [userId]);
+
+  // Accept invitation
+  const handleAccept = async (connectionId) => {
     try {
-      const response = await fetch(`http://localhost:5000/api/connectionroute/pending/${userId}`);
-      if (!response.ok) throw new Error("Failed to fetch invitations");
-      const data = await response.json();
-      setInvitations(data);
+      const response = await fetch(
+        `https://connecthivebackend.onrender.com/api/connectionroute/connections/${connectionId}/accept`,
+        {
+          method: "PUT",
+        },
+      );
+      if (!response.ok) throw new Error("Failed to accept request");
+      setInvitations(invitations.filter((inv) => inv.id !== connectionId));
     } catch (error) {
-      console.error("Error fetching invitations:", error);
+      console.error("Error accepting request:", error);
     }
   };
-  fetchInvitations();
-}, [userId]);
 
-
-// Accept invitation
-const handleAccept = async (connectionId) => {
-  try {
-    const response = await fetch(`http://localhost:5000/api/connectionroute/connections/${connectionId}/accept`, {
-      method: "PUT",
-    });
-    if (!response.ok) throw new Error("Failed to accept request");
-    setInvitations(invitations.filter((inv) => inv.id !== connectionId));
-  } catch (error) {
-    console.error("Error accepting request:", error);
-  }
-};
-
-// Reject invitation
-const handleReject = async (connectionId) => {
-  try {
-    const response = await fetch(`http://localhost:5000/api/connectionroute/connections/${connectionId}/reject`, {
-      method: "PUT",
-    });
-    if (!response.ok) throw new Error("Failed to reject request");
-    setInvitations(invitations.filter((inv) => inv.id !== connectionId));
-  } catch (error) {
-    console.error("Error rejecting request:", error);
-  }
-};
+  // Reject invitation
+  const handleReject = async (connectionId) => {
+    try {
+      const response = await fetch(
+        `https://connecthivebackend.onrender.com/api/connectionroute/connections/${connectionId}/reject`,
+        {
+          method: "PUT",
+        },
+      );
+      if (!response.ok) throw new Error("Failed to reject request");
+      setInvitations(invitations.filter((inv) => inv.id !== connectionId));
+    } catch (error) {
+      console.error("Error rejecting request:", error);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 p-6">
       <div className="bg-gray-800 shadow-lg p-6 rounded-lg max-w-xl">
-        <h1 className="text-2xl font-bold mb-4 text-white w-full">Invitations</h1>
+        <h1 className="text-2xl font-bold mb-4 text-white w-full">
+          Invitations
+        </h1>
 
         {/* Invitations */}
         {invitations.length > 0 ? (
           invitations.map((person) => (
-            <div key={person.id} className="flex items-center justify-between p-3 border-b border-gray-700">
+            <div
+              key={person.id}
+              className="flex items-center justify-between p-3 border-b border-gray-700"
+            >
               <div className="flex items-center">
                 <FaUserCircle className="text-3xl text-gray-400 mr-3" />
                 <div>

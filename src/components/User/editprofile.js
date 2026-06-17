@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import '../User/editprofile.css';
+import "../User/editprofile.css";
 
 // Editable List Component
 function EditableList({ title, items, setItems, placeholder }) {
@@ -16,8 +16,6 @@ function EditableList({ title, items, setItems, placeholder }) {
     setItems(items.map((item, i) => (i === index ? value : item)));
   };
 
-
-
   return (
     <div className="mt-6">
       <h3 className="text-lg font-bold text-blue-400">{title}</h3>
@@ -30,10 +28,18 @@ function EditableList({ title, items, setItems, placeholder }) {
             onChange={(e) => handleChange(index, e.target.value)}
             className="input"
           />
-          <button onClick={() => handleRemoveItem(index)} className="ml-2 text-red-500">✕</button>
+          <button
+            onClick={() => handleRemoveItem(index)}
+            className="ml-2 text-red-500"
+          >
+            ✕
+          </button>
         </div>
       ))}
-      <button onClick={handleAddItem} className="mt-2 bg-gray-700 px-2 py-1 rounded">
+      <button
+        onClick={handleAddItem}
+        className="mt-2 bg-gray-700 px-2 py-1 rounded"
+      >
         + Add {title}
       </button>
     </div>
@@ -63,14 +69,16 @@ function EditableLicenseList({ licenses, setLicenses }) {
   const handleChange = (index, field, value) => {
     setLicenses(
       licenses.map((license, i) =>
-        i === index ? { ...license, [field]: value } : license
-      )
+        i === index ? { ...license, [field]: value } : license,
+      ),
     );
   };
 
   return (
     <div className="mt-6">
-      <h3 className="text-lg font-bold text-blue-400">Licenses & Certifications</h3>
+      <h3 className="text-lg font-bold text-blue-400">
+        Licenses & Certifications
+      </h3>
       {licenses.map((license, index) => (
         <div key={index} className="mt-4 p-4 border border-gray-600 rounded-lg">
           <input
@@ -82,7 +90,9 @@ function EditableLicenseList({ licenses, setLicenses }) {
           <input
             placeholder="Issuing Organization"
             value={license.issuing_organization}
-            onChange={(e) => handleChange(index, "issuing_organization", e.target.value)}
+            onChange={(e) =>
+              handleChange(index, "issuing_organization", e.target.value)
+            }
             className="input mb-2"
           />
           <input
@@ -96,27 +106,39 @@ function EditableLicenseList({ licenses, setLicenses }) {
             type="date"
             placeholder="Expiration Date"
             value={license.expiration_date}
-            onChange={(e) => handleChange(index, "expiration_date", e.target.value)}
+            onChange={(e) =>
+              handleChange(index, "expiration_date", e.target.value)
+            }
             className="input mb-2"
           />
           <input
             placeholder="Credential ID"
             value={license.credential_id}
-            onChange={(e) => handleChange(index, "credential_id", e.target.value)}
+            onChange={(e) =>
+              handleChange(index, "credential_id", e.target.value)
+            }
             className="input mb-2"
           />
           <input
             placeholder="Credential URL"
             value={license.credential_url}
-            onChange={(e) => handleChange(index, "credential_url", e.target.value)}
+            onChange={(e) =>
+              handleChange(index, "credential_url", e.target.value)
+            }
             className="input mb-2"
           />
-          <button onClick={() => handleRemoveLicense(index)} className="ml-2 text-red-500">
+          <button
+            onClick={() => handleRemoveLicense(index)}
+            className="ml-2 text-red-500"
+          >
             ✕ Remove
           </button>
         </div>
       ))}
-      <button onClick={handleAddLicense} className="mt-2 bg-gray-700 px-2 py-1 rounded">
+      <button
+        onClick={handleAddLicense}
+        className="mt-2 bg-gray-700 px-2 py-1 rounded"
+      >
         + Add License
       </button>
     </div>
@@ -145,8 +167,8 @@ function EditableEducationList({ education, setEducation }) {
   const handleChange = (index, field, value) => {
     setEducation(
       education.map((education, i) =>
-        i === index ? { ...education, [field]: value } : education
-      )
+        i === index ? { ...education, [field]: value } : education,
+      ),
     );
   };
 
@@ -170,7 +192,9 @@ function EditableEducationList({ education, setEducation }) {
           <input
             placeholder="field_of_study"
             value={edu.field_of_study}
-            onChange={(e) => handleChange(index, "field_of_study", e.target.value)}
+            onChange={(e) =>
+              handleChange(index, "field_of_study", e.target.value)
+            }
             className="input mb-2"
           />
           <input
@@ -187,12 +211,18 @@ function EditableEducationList({ education, setEducation }) {
             onChange={(e) => handleChange(index, "end_year", e.target.value)}
             className="input mb-2"
           />
-          <button onClick={() => handleRemoveEducation(index)} className="ml-2 text-red-500">
+          <button
+            onClick={() => handleRemoveEducation(index)}
+            className="ml-2 text-red-500"
+          >
             ✕ Remove
           </button>
         </div>
       ))}
-      <button onClick={handleAddEducation} className="mt-2 bg-gray-700 px-2 py-1 rounded">
+      <button
+        onClick={handleAddEducation}
+        className="mt-2 bg-gray-700 px-2 py-1 rounded"
+      >
         + Add Education
       </button>
     </div>
@@ -221,8 +251,8 @@ function EditableExperienceList({ Experience, setExperience }) {
   const handleChange = (index, field, value) => {
     setExperience(
       Experience.map((Experience, i) =>
-        i === index ? { ...Experience, [field]: value } : Experience
-      )
+        i === index ? { ...Experience, [field]: value } : Experience,
+      ),
     );
   };
 
@@ -263,12 +293,18 @@ function EditableExperienceList({ Experience, setExperience }) {
             onChange={(e) => handleChange(index, "description", e.target.value)}
             className="input mb-2"
           />
-          <button onClick={() => handleRemoveExperience(index)} className="ml-2 text-red-500">
+          <button
+            onClick={() => handleRemoveExperience(index)}
+            className="ml-2 text-red-500"
+          >
             ✕ Remove
           </button>
         </div>
       ))}
-      <button onClick={handleAddExperience} className="mt-2 bg-gray-700 px-2 py-1 rounded">
+      <button
+        onClick={handleAddExperience}
+        className="mt-2 bg-gray-700 px-2 py-1 rounded"
+      >
         + Add Experience
       </button>
     </div>
@@ -295,8 +331,8 @@ export default function EditProfile() {
   const [licenses, setLicenses] = useState([]);
   const [skills, setSkills] = useState([]);
   const [interests, setInterests] = useState([]);
-  const [education,setEducation] = useState([]);
-  const [Experience,setExperience]=useState([]);
+  const [education, setEducation] = useState([]);
+  const [Experience, setExperience] = useState([]);
   useEffect(() => {
     fetch(`/api/get_profile/${userId}`)
       .then((res) => res.json())
@@ -317,100 +353,111 @@ export default function EditProfile() {
   };
 
   const handleSubmit = async () => {
-
     try {
-        // If everything is valid, send data to the backend
-        const profileResponse = await fetch("http://localhost:5000/api/user/add_profile", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ user_id: userId, ...profile }),
-        });
-    }catch(e){
+      // If everything is valid, send data to the backend
+      const profileResponse = await fetch(
+        "https://connecthivebackend.onrender.com/api/user/add_profile",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user_id: userId, ...profile }),
+        },
+      );
+    } catch (e) {
       alert("Error Updating Profile");
     }
 
-    try{   // Add licenses
-        await Promise.all(
-            licenses.map((license) =>
-                fetch("http://localhost:5000/api/user/add_license", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ user_id: userId, ...license }),
-                })
-            )
-        );
-    }catch(e){
-      alert("Error Updating Profile")
-    }
-     
-    try{
-        // Add education
-        await Promise.all(
-            education.map((edu) =>
-                fetch("http://localhost:5000/api/user/add_education", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ user_id: userId, ...edu }),
-                })
-            )
-        );
-    }catch(e){
-      alert("Error Updating Profile")
+    try {
+      // Add licenses
+      await Promise.all(
+        licenses.map((license) =>
+          fetch(
+            "https://connecthivebackend.onrender.com/api/user/add_license",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ user_id: userId, ...license }),
+            },
+          ),
+        ),
+      );
+    } catch (e) {
+      alert("Error Updating Profile");
     }
 
-
-    try{
-
-        // Add experience
-        await Promise.all(
-            Experience.map((exp) =>
-                fetch("http://localhost:5000/api/user/add_experience", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ user_id: userId, ...exp }),
-                })
-            )
-        );
-
-    }catch(e){
-      alert("Error Updating Profile")
+    try {
+      // Add education
+      await Promise.all(
+        education.map((edu) =>
+          fetch(
+            "https://connecthivebackend.onrender.com/api/user/add_education",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ user_id: userId, ...edu }),
+            },
+          ),
+        ),
+      );
+    } catch (e) {
+      alert("Error Updating Profile");
     }
 
-    try{
-
-        // Add skills
-        await Promise.all(
-            skills.map((skill) =>
-                fetch("http://localhost:5000/api/user/add_skill", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ user_id: userId, skill_name: skill }),
-                })
-            )
-        );
-    }catch(e){
-      alert("Error Updating Profile")
+    try {
+      // Add experience
+      await Promise.all(
+        Experience.map((exp) =>
+          fetch(
+            "https://connecthivebackend.onrender.com/api/user/add_experience",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ user_id: userId, ...exp }),
+            },
+          ),
+        ),
+      );
+    } catch (e) {
+      alert("Error Updating Profile");
     }
 
-
-    try{
-        // Add interests
-        await Promise.all(
-            interests.map((interest) =>
-                fetch("http://localhost:5000/api/user/add_interest", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ user_id: userId, interest_name: interest }),
-                })
-            )
-        );
-
-    }catch(e){
-      alert("Error Updating Profile")
+    try {
+      // Add skills
+      await Promise.all(
+        skills.map((skill) =>
+          fetch("https://connecthivebackend.onrender.com/api/user/add_skill", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user_id: userId, skill_name: skill }),
+          }),
+        ),
+      );
+    } catch (e) {
+      alert("Error Updating Profile");
     }
-        navigate("/user");
-};
 
+    try {
+      // Add interests
+      await Promise.all(
+        interests.map((interest) =>
+          fetch(
+            "https://connecthivebackend.onrender.com/api/user/add_interest",
+            {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                user_id: userId,
+                interest_name: interest,
+              }),
+            },
+          ),
+        ),
+      );
+    } catch (e) {
+      alert("Error Updating Profile");
+    }
+    navigate("/user");
+  };
 
   return (
     <div className="edit-profile-container">
@@ -418,19 +465,62 @@ export default function EditProfile() {
         <h2 className="text-2xl font-bold text-blue-400 mb-4">Edit Profile</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input name="name" placeholder="Full Name" value={profile.name} onChange={handleChange} className="input" />
-          <input name="email" placeholder="Email" value={profile.email} onChange={handleChange} className="input" />
-          <input name="phone" placeholder="Phone" value={profile.phone} onChange={handleChange} className="input" />
-          <textarea name="summary" placeholder="Summary" value={profile.summary} onChange={handleChange} className="input" />
+          <input
+            name="name"
+            placeholder="Full Name"
+            value={profile.name}
+            onChange={handleChange}
+            className="input"
+          />
+          <input
+            name="email"
+            placeholder="Email"
+            value={profile.email}
+            onChange={handleChange}
+            className="input"
+          />
+          <input
+            name="phone"
+            placeholder="Phone"
+            value={profile.phone}
+            onChange={handleChange}
+            className="input"
+          />
+          <textarea
+            name="summary"
+            placeholder="Summary"
+            value={profile.summary}
+            onChange={handleChange}
+            className="input"
+          />
         </div>
 
         <EditableLicenseList licenses={licenses} setLicenses={setLicenses} />
-        <EditableEducationList education={education} setEducation={setEducation} />
-        <EditableExperienceList Experience={Experience} setExperience={setExperience} />
-        <EditableList title="Skills" items={skills} setItems={setSkills} placeholder="Add Skill" />
-        <EditableList title="Interests" items={interests} setItems={setInterests} placeholder="Add Interest" />
+        <EditableEducationList
+          education={education}
+          setEducation={setEducation}
+        />
+        <EditableExperienceList
+          Experience={Experience}
+          setExperience={setExperience}
+        />
+        <EditableList
+          title="Skills"
+          items={skills}
+          setItems={setSkills}
+          placeholder="Add Skill"
+        />
+        <EditableList
+          title="Interests"
+          items={interests}
+          setItems={setInterests}
+          placeholder="Add Interest"
+        />
 
-        <button onClick={handleSubmit} className="mt-6 bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-500 transition w-full">
+        <button
+          onClick={handleSubmit}
+          className="mt-6 bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-500 transition w-full"
+        >
           Save Changes
         </button>
       </div>

@@ -16,7 +16,9 @@ function Feed() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/posts/post");
+        const res = await axios.get(
+          "https://connecthivebackend.onrender.com/api/posts/post",
+        );
         const reversed = res.data.reverse();
         setPosts(reversed);
 
@@ -35,8 +37,8 @@ function Feed() {
   const fetchStats = async (postId) => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/posts/post/${postId}/stats`,
-        { params: { userId } }
+        `https://connecthivebackend.onrender.com/api/posts/post/${postId}/stats`,
+        { params: { userId } },
       );
       setStats((prev) => ({ ...prev, [postId]: res.data }));
     } catch (err) {
@@ -47,7 +49,7 @@ function Feed() {
   const fetchComments = async (postId) => {
     try {
       const res = await axios.get(
-        `http://localhost:5000/api/posts/comments/${postId}`
+        `https://connecthivebackend.onrender.com/api/posts/comments/${postId}`,
       );
       setComments((prev) => ({ ...prev, [postId]: res.data }));
     } catch (err) {
@@ -57,13 +59,16 @@ function Feed() {
 
   const handleLike = async (postId) => {
     try {
-      await axios.post(`http://localhost:5000/api/posts/post/${postId}/like`, {
-        userId,
-      });
+      await axios.post(
+        `https://connecthivebackend.onrender.com/api/posts/post/${postId}/like`,
+        {
+          userId,
+        },
+      );
 
       const res = await axios.get(
-        `http://localhost:5000/api/posts/post/${postId}/stats`,
-        { params: { userId } }
+        `https://connecthivebackend.onrender.com/api/posts/post/${postId}/stats`,
+        { params: { userId } },
       );
 
       setStats((prev) => ({
@@ -80,10 +85,13 @@ function Feed() {
     if (!content) return;
 
     try {
-      await axios.post(`http://localhost:5000/api/posts/post/${postId}/comment`, {
-        userId,
-        content,
-      });
+      await axios.post(
+        `https://connecthivebackend.onrender.com/api/posts/post/${postId}/comment`,
+        {
+          userId,
+          content,
+        },
+      );
 
       setNewComment((prev) => ({ ...prev, [postId]: "" }));
       await fetchComments(postId);
@@ -105,7 +113,7 @@ function Feed() {
     setExpandedPosts((prev) =>
       prev.includes(postId)
         ? prev.filter((id) => id !== postId)
-        : [...prev, postId]
+        : [...prev, postId],
     );
   };
 
@@ -123,7 +131,11 @@ function Feed() {
             ? post.content
             : post.content.slice(0, 150) + "...";
 
-        const postStats = stats[post.id] || { likes: 0, comments: 0, userLiked: false };
+        const postStats = stats[post.id] || {
+          likes: 0,
+          comments: 0,
+          userLiked: false,
+        };
         const postComments = comments[post.id] || [];
 
         return (
@@ -152,12 +164,12 @@ function Feed() {
 
             {post.photo && (
               <a
-                href={`http://localhost:5000/${post.photo}`}
+                href={`https://connecthivebackend.onrender.com/${post.photo}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
                 <img
-                  src={`http://localhost:5000/${post.photo}`}
+                  src={`https://connecthivebackend.onrender.com/${post.photo}`}
                   alt="post"
                   style={styles.postImage}
                 />
@@ -167,7 +179,7 @@ function Feed() {
             {post.video && (
               <video controls style={styles.postVideo}>
                 <source
-                  src={`http://localhost:5000/${post.video}`}
+                  src={`https://connecthivebackend.onrender.com/${post.video}`}
                   type="video/mp4"
                 />
                 Your browser does not support the video tag.
@@ -176,7 +188,7 @@ function Feed() {
 
             {post.article && (
               <a
-                href={`http://localhost:5000/${post.article}`}
+                href={`https://connecthivebackend.onrender.com/${post.article}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -194,7 +206,8 @@ function Feed() {
                 }}
                 onClick={() => handleLike(post.id)}
               >
-                {postStats.userLiked ? "❤ Unlike" : "🤍 Like"} ({postStats.likes})
+                {postStats.userLiked ? "❤ Unlike" : "🤍 Like"} (
+                {postStats.likes})
               </button>
 
               <button
@@ -211,10 +224,20 @@ function Feed() {
                 postContent={post.content}
                 postAuthor={post.name}
                 postTime={new Date(post.createdAt).toLocaleString()}
-                postImage={post.photo ? `http://localhost:5000/${post.photo}` : ""}
-                postVideo={post.video ? `http://localhost:5000/${post.video}` : ""}
+                postImage={
+                  post.photo
+                    ? `https://connecthivebackend.onrender.com/${post.photo}`
+                    : ""
+                }
+                postVideo={
+                  post.video
+                    ? `https://connecthivebackend.onrender.com/${post.video}`
+                    : ""
+                }
                 postArticleLink={
-                  post.article ? `http://localhost:5000/${post.article}` : ""
+                  post.article
+                    ? `https://connecthivebackend.onrender.com/${post.article}`
+                    : ""
                 }
                 onBookmarkToggle={() => {}}
               />

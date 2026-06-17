@@ -69,7 +69,7 @@ function NotificationComponent() {
             }
             console.log("Client ID:", clientId);
 
-            const response = await fetch(`http://localhost:5000/api/tasks/task/notifications/${clientId}`);
+            const response = await fetch(`https://connecthivebackend.onrender.com/api/tasks/task/notifications/${clientId}`);
             if (!response.ok) throw new Error("Failed to fetch notifications");
 
             const data = await response.json();

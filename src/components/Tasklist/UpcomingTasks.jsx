@@ -29,7 +29,7 @@ function UpcomingTasks() {
 
     const fetchUpcomingTasks = async (client_id) => {
         try {
-            const response = await axios.get(`http://localhost:5000/api/tasks/task/upcoming/${client_id}`, {
+            const response = await axios.get(`https://connecthivebackend.onrender.com/api/tasks/task/upcoming/${client_id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setTasks(response.data);
@@ -50,7 +50,7 @@ function UpcomingTasks() {
     //         console.error("Client ID not found");
     //         return;
     //     }
-    //     axios.delete(`http://localhost:5000/api/tasks/task/${taskId}`)
+    //     axios.delete(`https://connecthivebackend.onrender.com/api/tasks/task/${taskId}`)
     //         .then(() => {
     //             const filteredTasks = taskList.filter((_, i) => i !== index);
     //             setTasks(filteredTasks);
@@ -68,7 +68,7 @@ function UpcomingTasks() {
             return;
         }
 
-        axios.delete(`http://localhost:5000/api/tasks/task/${taskId}`, {
+        axios.delete(`https://connecthivebackend.onrender.com/api/tasks/task/${taskId}`, {
             data: { client_id: client_id }, 
         })
         .then(() => {

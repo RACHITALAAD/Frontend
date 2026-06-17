@@ -49,7 +49,7 @@ function TodaysTasks() {
                 try {
                     if(!client_id) return;
 
-                    const response = await axios.get(`http://localhost:5000/api/tasks/task/today/${client_id}`, {
+                    const response = await axios.get(`https://connecthivebackend.onrender.com/api/tasks/task/today/${client_id}`, {
                        headers: { Authorization: `Bearer ${token}` } 
                     });
 
@@ -79,7 +79,7 @@ function TodaysTasks() {
     const handleDelete = async (index) => {
         const taskId = tasks[index].task_id;
         try{
-         await axios.delete(`http://localhost:5000/api/tasks/task/${taskId}` , { headers: { Authorization: `Bearer ${token}` },
+         await axios.delete(`https://connecthivebackend.onrender.com/api/tasks/task/${taskId}` , { headers: { Authorization: `Bearer ${token}` },
             data: { client_id: userId }
 
          });

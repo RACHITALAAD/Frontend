@@ -9,7 +9,7 @@ function CompletedTasks() {
 
     useEffect(() => {
         if (user && user.id) {
-            axios.get(`http://localhost:5000/api/tasks/task/completed/${user.id}`)
+            axios.get(`https://connecthivebackend.onrender.com/api/tasks/task/completed/${user.id}`)
                 .then(response => setTasks(response.data))
                 .catch(error => console.error("Error fetching completed tasks:", error));
         }
@@ -26,7 +26,7 @@ function CompletedTasks() {
         return;
     }
 
-    axios.delete(`http://localhost:5000/api/tasks/task/${taskId}`, {
+    axios.delete(`https://connecthivebackend.onrender.com/api/tasks/task/${taskId}`, {
         data: { client_id: clientId }
     })
         .then(() => {

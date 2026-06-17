@@ -5,7 +5,7 @@ const BookmarkContext = createContext();
 
 export const BookmarkProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-    const [token, setToken] = useState("");
+  const [token, setToken] = useState("");
   const [bookmarkedPosts, setBookmarkedPosts] = useState([]);
 
   useEffect(() => {
@@ -13,14 +13,12 @@ export const BookmarkProvider = ({ children }) => {
     const storedToken = localStorage.getItem("token");
 
     if (storedUser && storedToken) {
-        setUser(storedUser);
-        setToken(storedToken);
+      setUser(storedUser);
+      setToken(storedToken);
     }
-}, []);
+  }, []);
 
-const userId = user?.id;
-
-
+  const userId = user?.id;
 
   // Fetch bookmarks on load or when userId changes
   useEffect(() => {
@@ -28,7 +26,9 @@ const userId = user?.id;
 
     const fetchBookmarks = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/bookmarks/${userId}`);
+        const res = await axios.get(
+          `https://connecthivebackend.onrender.com/api/bookmarks/${userId}`,
+        );
         setBookmarkedPosts(res.data);
       } catch (error) {
         console.error("Error fetching bookmarks:", error);
@@ -43,10 +43,13 @@ const userId = user?.id;
     if (!userId) return; // If no userId, do nothing
 
     try {
-      const res = await axios.post(`http://localhost:5000/api/bookmarks/toggle`, {
-        user_id: userId, // Use passed userId
-        post_id: post.post_id
-      });
+      const res = await axios.post(
+        `https://connecthivebackend.onrender.com/api/bookmarks/toggle`,
+        {
+          user_id: userId, // Use passed userId
+          post_id: post.post_id,
+        },
+      );
       console.log("Toggle Bookmark response:", res.data);
 
       // Update UI immediately after toggling

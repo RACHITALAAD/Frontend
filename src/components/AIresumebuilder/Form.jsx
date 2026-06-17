@@ -17,7 +17,7 @@ const Form = ({
     const handleFormSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:5000/api/resume/submit-form', {
+            const response = await fetch('https://connecthivebackend.onrender.com/api/resume/submit-form', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

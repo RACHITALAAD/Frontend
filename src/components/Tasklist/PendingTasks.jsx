@@ -15,7 +15,7 @@ function PendingTasks({ onTaskCompletedUpdate }) {
         const clientId = storedUser.id;
         console.log("PendingTasks clientId (from localStorage user.id):", clientId);
 
-        axios.get(`http://localhost:5000/api/tasks/task/pending/${clientId}`)
+        axios.get(`https://connecthivebackend.onrender.com/api/tasks/task/pending/${clientId}`)
             .then(response => {
                 console.log("PendingTasks API response:", response.data);
                 setTasks(response.data);
@@ -32,13 +32,13 @@ function PendingTasks({ onTaskCompletedUpdate }) {
 
 // const markCompleted = useCallback((taskId) => {
 //   if (!user || !user.id) return;
-//   axios.put(`http://localhost:5000/api/tasks/task/complete/${taskId}`, { client_id: user.id })
+//   axios.put(`https://connecthivebackend.onrender.com/api/tasks/task/complete/${taskId}`, { client_id: user.id })
 //       .then(() => {
-//           axios.get(`http://localhost:5000/api/tasks/task/pending/${user.id}`)
+//           axios.get(`https://connecthivebackend.onrender.com/api/tasks/task/pending/${user.id}`)
 //               .then(response => setTasks(response.data))
 //               .catch(error => console.error("Error refetching pending tasks:", error));
 
-//           axios.get(`http://localhost:5000/api/tasks/task/completed/${user.id}`)
+//           axios.get(`https://connecthivebackend.onrender.com/api/tasks/task/completed/${user.id}`)
 //               .then(response => {
 //                   console.log("Completed tasks after mark:", response.data);
 //                   if (onTaskCompletedUpdate) {
@@ -56,13 +56,13 @@ const markCompleted = useCallback((taskId) => {
 
   if (!clientId) return;
 
-  axios.put(`http://localhost:5000/api/tasks/task/complete/${taskId}`, { client_id: clientId })
+  axios.put(`https://connecthivebackend.onrender.com/api/tasks/task/complete/${taskId}`, { client_id: clientId })
       .then(() => {
-          axios.get(`http://localhost:5000/api/tasks/task/pending/${clientId}`)
+          axios.get(`https://connecthivebackend.onrender.com/api/tasks/task/pending/${clientId}`)
               .then(response => setTasks(response.data))
               .catch(error => console.error("Error refetching pending tasks:", error));
 
-          axios.get(`http://localhost:5000/api/tasks/task/completed/${clientId}`)
+          axios.get(`https://connecthivebackend.onrender.com/api/tasks/task/completed/${clientId}`)
               .then(response => {
                   console.log("Completed tasks after mark:", response.data);
                   if (onTaskCompletedUpdate) {
@@ -79,7 +79,7 @@ const markCompleted = useCallback((taskId) => {
   //   const clientId = localStorage.getItem("client_id");
   //   if(!clientId) return;
 
-  //   axios.delete(`http://localhost:5000/api/tasks/task/${taskId}` , {data : {client_id : clientId}})
+  //   axios.delete(`https://connecthivebackend.onrender.com/api/tasks/task/${taskId}` , {data : {client_id : clientId}})
   //     .then(() => {
   //       setTasks(tasks.filter(task => task.task_id !== taskId));
   //     })
@@ -90,7 +90,7 @@ const markCompleted = useCallback((taskId) => {
     const loggedInUser = JSON.parse(localStorage.getItem("user"));
     const clientId = loggedInUser?.id;
     if (!clientId) return;
-    axios.delete(`http://localhost:5000/api/tasks/task/${taskId}`, { data: { client_id: clientId } })
+    axios.delete(`https://connecthivebackend.onrender.com/api/tasks/task/${taskId}`, { data: { client_id: clientId } })
         .then(() => {
             setTasks(tasks.filter(task => task.task_id !== taskId));
         })

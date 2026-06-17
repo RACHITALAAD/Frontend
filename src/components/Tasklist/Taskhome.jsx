@@ -42,7 +42,7 @@ function Taskhome() {
           setToken(storedToken);
           setTaskList([]);
 
-          axios.get(`http://localhost:5000/api/tasks/task/${storedUser.id}`)
+          axios.get(`https://connecthivebackend.onrender.com/api/tasks/task/${storedUser.id}`)
           .then(response => {
             setTaskList(response.data);
           })
@@ -57,7 +57,7 @@ function Taskhome() {
   const fetchCompletedTasks = (clientId) => {
     
     if (!clientId) return;
-    axios.get(`http://localhost:5000/api/tasks/task/completed/${clientId}`)
+    axios.get(`https://connecthivebackend.onrender.com/api/tasks/task/completed/${clientId}`)
         .then(response => setCompletedTasks(response.data))
         .catch(error => console.error("Error fetching completed tasks:", error));
 };
@@ -115,7 +115,7 @@ const handleSubmit = async (e) => {
 
         if (editIndex !== null) {
             const taskId = taskList[editIndex].task_id;
-            axios.put(`http://localhost:5000/api/tasks/task/${taskId}` , newTask)
+            axios.put(`https://connecthivebackend.onrender.com/api/tasks/task/${taskId}` , newTask)
                .then(response => {
                   const updatedTasks = [...taskList];
                   updatedTasks[editIndex] = {...newTask , task_id: taskId};
@@ -125,7 +125,7 @@ const handleSubmit = async (e) => {
                .catch(err => console.error("Error in updating the task : " , err));
             
         } else {
-            axios.post('http://localhost:5000/api/tasks/task' , newTask)
+            axios.post('https://connecthivebackend.onrender.com/api/tasks/task' , newTask)
                .then(response => {
                 // setTaskList((prevList) => [...prevList, {...newTask , task_id: response.data.taskId}
                 const newTaskWithId = { ...newTask, task_id: response.data.taskId };
@@ -154,7 +154,7 @@ const handleSubmit = async (e) => {
 
     const handleDelete = (index) => {
         const taskId = taskList[index].task_id;
-        axios.delete(`http://localhost:5000/api/tasks/task/${taskId}` , { data: { client_id: user.id } })
+        axios.delete(`https://connecthivebackend.onrender.com/api/tasks/task/${taskId}` , { data: { client_id: user.id } })
            .then(() => {
             const filteredTasks = taskList.filter((_, i) => i !== index);
             setTaskList(filteredTasks);
